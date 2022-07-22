@@ -10,6 +10,8 @@ const app = express();
 // getting access to files in ".env" folder
 dotenv.config();
 
+const PORT = process.env.PORT;
+
 // connecting to mongoDB
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -28,4 +30,4 @@ app.get("/", (req, res) => {
 // user route
 app.use("/user", userRoute)
 
-app.listen(process.env.PORT, () => console.log(`password-reset server started at ${process.env.PORT}`));
+app.listen(PORT, () => console.log(`password-reset server started at ${PORT}`));
