@@ -49,7 +49,7 @@ app.get("/shortUrl/:shortid", async (req, res) => {
     const getUrl = await shortUrl.findOne({ shortUrl: req.params.shortid });
     getUrl.clicks++;
     getUrl.save();
-    res.send({ data: getUrl.fullUrl });
+    res.redirect(`/${getUrl.fullUrl}`);
 })
 
-app.listen(PORT, () => console.log(`password-reset server started at ${PORT}`));
+app.listen(PORT, () => console.log(`password - reset server started at ${PORT}`));
