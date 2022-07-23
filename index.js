@@ -54,3 +54,4 @@ app.get("/shortUrl/:shortid", async (req, res) => {
 })
 
 app.listen(PORT, () => console.log(`password-reset server started at ${PORT}`));
+
