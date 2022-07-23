@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const userRoute = require("./Routes/userRoute");
+const shortUrl = require("./Models/ShortUrl")
 
 // defining app type
 const app = express();
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGO_URL, {
 // middlewares
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 
 // root route
 app.get("/", (req, res) => {
@@ -29,5 +31,23 @@ app.get("/", (req, res) => {
 
 // user route
 app.use("/user", userRoute)
+
+// generate new shortURL 
+app.post("/shortUrl", async (req, res) => {
+    const newUrlData = await shortUrl.create({ fullUrl: req.body.fullUrl });
+    res.send(newUrlData)
+})
+
+// get shrinked URL's
+app.get("/shortUrl", async (req, res) => {
+    const getAllUrls = await shortUrl.find();
+    res.send(getAllUrls)
+})
+
+// visit specific URL 
+app.get("/shortUrl/:shortid", async (req, res) => {
+    const getUrl = await shortUrl.findOne({ shortUrl: req.params.shortid });
+    res.send({ data: getUrl.fullUrl });
+})
 
 app.listen(PORT, () => console.log(`password-reset server started at ${PORT}`));
