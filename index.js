@@ -11,6 +11,7 @@ const app = express();
 // getting access to files in ".env" folder
 dotenv.config();
 
+
 const PORT = process.env.PORT;
 
 // connecting to mongoDB
