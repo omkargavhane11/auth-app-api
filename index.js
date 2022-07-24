@@ -53,6 +53,12 @@ app.get("/shortUrl/:shortid", async (req, res) => {
     res.send({ data: getUrl.fullUrl });
 })
 
+// delete url 
+app.delete("/shortUrl/:shortid", async (req, res) => {
+    const getUrl = await shortUrl.deleteOne({ shortUrl: req.params.shortid });
+    res.send("Short URL deleted");
+})
+
 app.listen(PORT, () => console.log(`password-reset server started at ${PORT}`));
 
 
