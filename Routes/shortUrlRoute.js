@@ -29,7 +29,7 @@ router.get("/:shortid", async (req, res) => {
         const getUrl = await shortUrl.findOne({ shortUrl: req.params.shortid });
         // getUrl.clicks++;
         // getUrl.save();
-        res.send({ data: getUrl.fullUrl });
+        res.send({ data: getUrl });
         // console.log(getUrl.clicks++);
     } catch (err) {
         res.send({ error: err.message });
