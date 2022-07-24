@@ -13,7 +13,13 @@ const shortUrl = new mongoose.Schema({
     clicks: {
         type: Number,
         default: 0
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: ""
     }
-})
+},
+    { timestamps: true }
+)
 
 module.exports = mongoose.model("ShortUrl", shortUrl);
