@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const userRoute = require("./Routes/userRoute");
-const shortUrl = require("./Models/ShortUrl")
+const shortUrlRoute = require("./Routes/shortUrlRoute");
+// const shortUrl = require("./Models/ShortUrl")
 
 // defining app type
 const app = express();
@@ -33,31 +34,10 @@ app.get("/", (req, res) => {
 // user route
 app.use("/user", userRoute)
 
-// generate new shortURL 
-app.post("/shortUrl", async (req, res) => {
-    const newUrlData = await shortUrl.create({ fullUrl: req.body.fullUrl });
-    res.send(newUrlData)
-})
+// shortUrl route
+app.use("/shortUrl", shortUrlRoute)
 
-// get shrinked URL's
-app.get("/shortUrl", async (req, res) => {
-    const getAllUrls = await shortUrl.find();
-    res.send(getAllUrls)
-})
 
-// visit specific URL 
-app.get("/shortUrl/:shortid", async (req, res) => {
-    const getUrl = await shortUrl.findOne({ shortUrl: req.params.shortid });
-    getUrl?.clicks++;
-    getUrl?.save();
-    res.send({ data: getUrl.fullUrl });
-})
-
-// delete url 
-app.delete("/shortUrl/:shortid", async (req, res) => {
-    const getUrl = await shortUrl.deleteOne({ shortUrl: req.params.shortid });
-    res.send("Short URL deleted");
-})
 
 app.listen(PORT, () => console.log(`password-reset server started at ${PORT}`));
 
